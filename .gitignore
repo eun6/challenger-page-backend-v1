@@ -39,7 +39,10 @@ out/
 ### Example user template
 
 # IntelliJ project files
+application-DB.properties
+
 .idea
 *.iml
 out
 gen
+
