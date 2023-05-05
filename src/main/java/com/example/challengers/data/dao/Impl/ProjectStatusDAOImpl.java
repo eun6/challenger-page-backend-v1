@@ -25,10 +25,18 @@ public class ProjectStatusDAOImpl implements ProjectStatusDAO {
         return savedProjectStatus;
     }
 
-    // 저장된 정보 선택
+    // *저장된 정보 선택
+    // id 값으로 정보 찾기
     @Override
     public ProjectStatus selectProjectStatus(Long id) {
         ProjectStatus selectProjectStatus = projectStatusRepository.getById(id);
+        return selectProjectStatus;
+    }
+
+    // status 값으로 정보 찾기.
+    @Override
+    public ProjectStatus selectProjectStatus(String status) {
+        ProjectStatus selectProjectStatus = projectStatusRepository.findByStatus(status);
         return selectProjectStatus;
     }
 

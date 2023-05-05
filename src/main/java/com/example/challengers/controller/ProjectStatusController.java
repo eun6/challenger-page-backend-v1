@@ -25,6 +25,13 @@ public class ProjectStatusController {
         ProjectStatusResponseDto projectStatusResponseDto = projectStatusService.getProjectStatus(id);
         return ResponseEntity.status(HttpStatus.OK).body(projectStatusResponseDto);
     }
+    // status 값으로 해당하는 id 값 찾기.
+    // (문제) status값이 중복일 때, 오류 발생.
+    @GetMapping("/get/{status}")
+    public ResponseEntity<Long> getProjectStatus(@PathVariable String status) {
+        ProjectStatusResponseDto projectStatusResponseDto = projectStatusService.getProjectStatus(status);
+        return ResponseEntity.status(HttpStatus.OK).body(projectStatusResponseDto.getId());
+    }
 
     @PostMapping("/post")
     public ResponseEntity<ProjectStatusResponseDto> createProjectStatus(@RequestBody ProjectStatusDto projectStatusDto) {

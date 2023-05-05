@@ -33,6 +33,19 @@ public class ProjectStatusServiceImpl implements ProjectStatusService {
         return projectStatusResponseDto;
     }
 
+    // status 값으로 정보 찾기.
+    @Override
+    @Transactional
+    public ProjectStatusResponseDto getProjectStatus(String status) {
+        ProjectStatus projectStatus = projectStatusDAO.selectProjectStatus(status);
+
+        ProjectStatusResponseDto projectStatusResponseDto = new ProjectStatusResponseDto();
+        projectStatusResponseDto.setId(projectStatus.getId());
+        projectStatusResponseDto.setStatus(projectStatus.getStatus());
+
+        return projectStatusResponseDto;
+    }
+
     //저장
     @Override
     public ProjectStatusResponseDto saveProjectStatus(ProjectStatusDto projectStatusDto) {
