@@ -9,14 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostDto {
+public class UpdatePostDto {
+    private Long id;
     private String projectName;
     private String githubPath;
     private String content;
     private String imagePath;
     private Team teamId;
     private ProjectStatus statusId;
-    public PostDto(String projectName, String githubPath, String content, String imagePath, Team teamId, ProjectStatus statusId) {
+    public UpdatePostDto(Long id, String projectName, String githubPath, String content, String imagePath, Team teamId, ProjectStatus statusId) {
+        this.id = id;
         this.projectName = projectName;
         this.githubPath = githubPath;
         this.content = content;
