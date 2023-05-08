@@ -22,7 +22,7 @@ public class ProjectStatus {
     @NotNull
     private String status;
 
-    //Slave
-    @OneToOne(mappedBy = "statusId")
-    private Post post;
+//    //Slave
+//    @OneToOne(mappedBy = "statusValue")
+//    private Post post;
 }

@@ -33,9 +33,9 @@ public class Post {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "team_id")
-    private Team teamId;
+    private Team team;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "project_status_id")
-    private ProjectStatus statusId;
+    private ProjectStatus statusValue;
 }

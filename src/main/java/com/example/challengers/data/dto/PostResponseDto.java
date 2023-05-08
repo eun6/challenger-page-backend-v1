@@ -16,8 +16,10 @@ public class PostResponseDto {
     private String content;
     private String imagePath;
     private Team teamId;
-    private ProjectStatus statusId;
-    public PostResponseDto(Long id, String projectName, String githubPath, String content, String imagePath, Team teamId, ProjectStatus statusId) {
+    private Long statusId;
+    private String statusValue;
+    public PostResponseDto(Long id, String projectName, String githubPath, String content, String imagePath,
+                           Team teamId, Long statusId, String statusValue) {
         this.id = id;
         this.projectName = projectName;
         this.githubPath = githubPath;
@@ -25,5 +27,6 @@ public class PostResponseDto {
         this.imagePath = imagePath;
         this.teamId = teamId;
         this.statusId = statusId;
+        this.statusValue = statusValue;
     }
 }

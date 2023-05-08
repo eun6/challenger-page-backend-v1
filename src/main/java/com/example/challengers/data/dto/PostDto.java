@@ -15,8 +15,8 @@ public class PostDto {
     private String content;
     private String imagePath;
     private Team teamId;
-    private ProjectStatus statusId;
-    public PostDto(String projectName, String githubPath, String content, String imagePath, Team teamId, ProjectStatus statusId) {
+    private Long statusId;
+    public PostDto(String projectName, String githubPath, String content, String imagePath, Team teamId, Long statusId) {
         this.projectName = projectName;
         this.githubPath = githubPath;
         this.content = content;
