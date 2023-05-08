@@ -15,17 +15,19 @@ public class PostResponseDto {
     private String githubPath;
     private String content;
     private String imagePath;
-    private Team teamId;
+    private Long teamId;
+    private String teamName;
     private Long statusId;
     private String statusValue;
     public PostResponseDto(Long id, String projectName, String githubPath, String content, String imagePath,
-                           Team teamId, Long statusId, String statusValue) {
+                           Long teamId, String teamName, Long statusId, String statusValue) {
         this.id = id;
         this.projectName = projectName;
         this.githubPath = githubPath;
         this.content = content;
         this.imagePath = imagePath;
         this.teamId = teamId;
+        this.teamName = teamName;
         this.statusId = statusId;
         this.statusValue = statusValue;
     }

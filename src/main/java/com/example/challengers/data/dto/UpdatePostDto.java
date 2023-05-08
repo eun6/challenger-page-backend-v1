@@ -15,15 +15,11 @@ public class UpdatePostDto {
     private String githubPath;
     private String content;
     private String imagePath;
-    private Team teamId;
-    private ProjectStatus statusId;
-    public UpdatePostDto(Long id, String projectName, String githubPath, String content, String imagePath, Team teamId, ProjectStatus statusId) {
+    public UpdatePostDto(Long id, String projectName, String githubPath, String content, String imagePath) {
         this.id = id;
         this.projectName = projectName;
         this.githubPath = githubPath;
         this.content = content;
         this.imagePath = imagePath;
-        this.teamId = teamId;
-        this.statusId = statusId;
     }
 }

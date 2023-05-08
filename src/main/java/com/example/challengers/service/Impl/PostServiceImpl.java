@@ -7,22 +7,24 @@ import com.example.challengers.data.domain.Team;
 import com.example.challengers.data.dto.PostDto;
 import com.example.challengers.data.dto.PostResponseDto;
 import com.example.challengers.data.repository.ProjectStatusRepository;
+import com.example.challengers.data.repository.TeamRepository;
 import com.example.challengers.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 @Service
 public class PostServiceImpl implements PostService {
     private final PostDAO postDAO;
     private final ProjectStatusRepository projectStatusRepository;
+    private final TeamRepository teamRepository;
 
     @Autowired
-    public PostServiceImpl(PostDAO postDAO, ProjectStatusRepository projectStatusRepository) {
+    public PostServiceImpl(PostDAO postDAO, ProjectStatusRepository projectStatusRepository, TeamRepository teamRepository) {
         this.postDAO = postDAO;
         this.projectStatusRepository = projectStatusRepository;
+        this.teamRepository = teamRepository;
     }
 
     //조회
@@ -38,7 +40,8 @@ public class PostServiceImpl implements PostService {
         postResponseDto.setGithubPath(post.getGithubPath());
         postResponseDto.setContent(post.getContent());
         postResponseDto.setImagePath(post.getImagePath());
-        postResponseDto.setTeamId(post.getTeam());
+        postResponseDto.setTeamId(post.getTeam().getId());
+        postResponseDto.setTeamName(post.getTeam().getName());
         postResponseDto.setStatusId(post.getStatusValue().getId());
         postResponseDto.setStatusValue(post.getStatusValue().getStatus());
 
@@ -49,17 +52,17 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostResponseDto savePost(PostDto postDto) {
         System.out.println("postDto.getStatusId(): " + postDto.getStatusId());
-        //System.out.println("statusID : " + projectStatusRepository.getById(postDto.getStatusId()));
 
         ProjectStatus statusID = projectStatusRepository.getById(postDto.getStatusId());
-        //System.out.println("statusID : " + statusID);
+        Team TeamID = teamRepository.getById(postDto.getTeamId());
+        System.out.println("statusID : " + TeamID);
 
         Post post = new Post();
         post.setProjectName(postDto.getProjectName());
         post.setGithubPath(postDto.getGithubPath());
         post.setContent(postDto.getContent());
         post.setImagePath(postDto.getImagePath());
-        post.setTeam(postDto.getTeamId());
+        post.setTeam(TeamID);
         post.setStatusValue(statusID);
 
         Post savedPostStatus = postDAO.insertPost(post);
@@ -74,7 +77,8 @@ public class PostServiceImpl implements PostService {
         postResponseDto.setGithubPath(savedPostStatus.getGithubPath());
         postResponseDto.setContent(savedPostStatus.getContent());
         postResponseDto.setImagePath(savedPostStatus.getImagePath());
-        postResponseDto.setTeamId(savedPostStatus.getTeam());
+        postResponseDto.setTeamId(savedPostStatus.getTeam().getId());
+        postResponseDto.setTeamName(savedPostStatus.getTeam().getName());
         postResponseDto.setStatusId(savedPostStatus.getStatusValue().getId());
         postResponseDto.setStatusValue(savedPostStatus.getStatusValue().getStatus());
 
@@ -83,9 +87,10 @@ public class PostServiceImpl implements PostService {
 
     //업데이트
     @Override
+    @Transactional
     public PostResponseDto updatePost(Long id, String projectName, String githubPath,
-                                      String content, String imagePath, Team teamId, ProjectStatus statusId) throws Exception {
-        Post changedPost = postDAO.updatePost(id, projectName, githubPath, content, imagePath, teamId, statusId);
+                                      String content, String imagePath) throws Exception {
+        Post changedPost = postDAO.updatePost(id, projectName, githubPath, content, imagePath);
 
         PostResponseDto postResponseDto = new PostResponseDto();
         postResponseDto.setId(changedPost.getId());
@@ -93,7 +98,7 @@ public class PostServiceImpl implements PostService {
         postResponseDto.setGithubPath(changedPost.getGithubPath());
         postResponseDto.setContent(changedPost.getContent());
         postResponseDto.setImagePath(changedPost.getImagePath());
-        postResponseDto.setTeamId(changedPost.getTeam());
+        postResponseDto.setTeamId(changedPost.getTeam().getId());
         postResponseDto.setStatusId(changedPost.getStatusValue().getId());
 
         return postResponseDto;

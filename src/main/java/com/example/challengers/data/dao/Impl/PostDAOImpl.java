@@ -5,7 +5,8 @@ import com.example.challengers.data.domain.Post;
 import com.example.challengers.data.domain.ProjectStatus;
 import com.example.challengers.data.domain.Team;
 import com.example.challengers.data.repository.PostRepository;
-import lombok.RequiredArgsConstructor;
+import com.example.challengers.data.repository.ProjectStatusRepository;
+import com.example.challengers.data.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
@@ -46,21 +47,29 @@ public class PostDAOImpl implements PostDAO {
     // Post 업데이트
     @Override
     public Post updatePost(Long id, String projectName, String githubPath,
-                           String content, String imagePath, Team teamId, ProjectStatus statusValue) throws Exception {
-        Optional<Post> selectedPost = postRepository.findById(id);
+                           String content, String imagePath) throws Exception {
+        Post selectedPost = postRepository.getById(id);
+        //Team team = teamRepository.getById(selectedPost.getTeam().getId());
+        //ProjectStatus statusID = projectStatusRepository.getById(selectedPost.getId());
 
         Post updatedPost;
-        if(selectedPost.isPresent()) {
-            Post post = selectedPost.get();
+        if(selectedPost != null) {
+            Post post = selectedPost;
 
             post.setProjectName(projectName);
             post.setGithubPath(githubPath);
             post.setContent(content);
             post.setImagePath(imagePath);
-            post.setTeam(teamId);
-            post.setStatusValue(statusValue);
+
 
             updatedPost = postRepository.save(post);
+            /*updatedPost.setId(updatedPost.getId());
+            updatedPost.setProjectName(updatedPost.getProjectName());
+            updatedPost.setGithubPath(updatedPost.getGithubPath());
+            updatedPost.setContent(updatedPost.getContent());
+            updatedPost.setImagePath(updatedPost.getImagePath());
+            updatedPost.setTeam(updatedPost.getTeam());
+            updatedPost.setStatusValue(updatedPost.getStatusValue());*/
         } else {
             throw new Exception();
         }

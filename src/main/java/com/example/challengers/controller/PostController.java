@@ -41,8 +41,7 @@ public class PostController {
         PostResponseDto postResponseDto = postService.updatePost(
                 updatePostDto.getId(), updatePostDto.getProjectName(),
                 updatePostDto.getGithubPath(), updatePostDto.getContent(),
-                updatePostDto.getImagePath(), updatePostDto.getTeamId(),
-                updatePostDto.getStatusId());
+                updatePostDto.getImagePath());
 
         return ResponseEntity.status(HttpStatus.OK).body(postResponseDto);
     }
